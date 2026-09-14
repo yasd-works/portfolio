@@ -1,0 +1,36 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ink: #0d151e;
+  --color-panel: #131e29;
+  --color-line: #2a3745;
+  --color-gold: #d5b77c;
+  --color-blue: #89b8ec;
+  --color-muted: #a8b5c3;
+  --font-sans: "Inter", "Noto Sans JP", "Yu Gothic", "Hiragino Kaku Gothic ProN", sans-serif;
+  --font-mono: "Cascadia Code", "SFMono-Regular", Consolas, monospace;
+}
+
+@layer base {
+  html { scroll-behavior: smooth; scroll-padding-top: 6rem; color-scheme: dark; }
+  body { margin: 0; background: var(--color-ink); color: #edf1f5; }
+  ::selection { background: #d5b77c; color: #0d151e; }
+  :focus-visible { outline: 2px solid var(--color-gold); outline-offset: 6px; }
+  summary { cursor: pointer; }
+}
+
+@layer components {
+  .shell { @apply mx-auto w-full max-w-6xl px-6 sm:px-10; }
+  .eyebrow { @apply font-mono text-[11px] font-medium tracking-[0.2em] text-gold uppercase; }
+  .tag { @apply rounded-sm border border-line bg-ink/35 px-2.5 py-1.5 text-xs leading-normal text-muted; }
+}
+
+.hero-grid {
+  background-image: linear-gradient(#89b8ec05 1px, transparent 1px), linear-gradient(90deg, #89b8ec05 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}

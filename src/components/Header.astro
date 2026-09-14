@@ -1,0 +1,36 @@
+---
+import { navigation, profile } from '../data/portfolio';
+import Icon from './Icon.astro';
+---
+<header class="sticky top-0 z-30 border-b border-line/70 bg-ink/95 backdrop-blur-md">
+  <div class="shell flex h-20 items-center justify-between gap-4">
+    <a href="#top" class="flex items-center gap-3" aria-label="Yasuda.y トップへ">
+      <span class="flex size-9 items-center justify-center border border-gold/65 font-mono text-sm tracking-tighter text-gold">Y.y</span>
+      <span class="text-sm font-semibold tracking-wider">yasd<span class="text-gold">.</span>works</span>
+    </a>
+    <nav aria-label="メインナビゲーション" class="hidden items-center gap-8 md:flex">
+      {navigation.map((item) => <a href={item.href} class="py-3 text-xs tracking-wider text-muted transition-colors hover:text-gold">{item.en}</a>)}
+      <a href={profile.github} target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 border-l border-line py-2 pl-8 text-xs text-muted hover:text-gold" aria-label="GitHub（新しいタブで開く）"><Icon name="github" class="size-4" /> GitHub</a>
+    </nav>
+    <details id="mobile-navigation" class="relative md:hidden">
+      <summary class="rounded-sm border border-line px-4 py-2.5 text-xs text-muted">メニュー</summary>
+      <nav aria-label="モバイルナビゲーション" class="absolute right-0 top-14 flex w-52 flex-col border border-line bg-panel p-3 shadow-2xl">
+        {navigation.map((item) => <a href={item.href} class="px-4 py-3 text-sm hover:bg-ink hover:text-gold">{item.label}</a>)}
+        <a href={profile.github} target="_blank" rel="noopener noreferrer" class="px-4 py-3 text-sm hover:bg-ink hover:text-gold" aria-label="GitHub（新しいタブで開く）">GitHub ↗</a>
+      </nav>
+    </details>
+  </div>
+</header>
+<script>
+  const menu = document.querySelector<HTMLDetailsElement>('#mobile-navigation');
+  menu?.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => { menu.open = false; }));
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && menu?.open) {
+      menu.open = false;
+      menu.querySelector('summary')?.focus();
+    }
+  });
+  document.addEventListener('click', (event) => {
+    if (menu?.open && event.target instanceof Node && !menu.contains(event.target)) menu.open = false;
+  });
+</script>

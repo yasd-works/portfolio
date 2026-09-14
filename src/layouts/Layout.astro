@@ -1,0 +1,27 @@
+---
+import '../styles/global.css';
+import { profile } from '../data/portfolio';
+interface Props { title?: string; description?: string; }
+const { title = `${profile.name} | ${profile.role}`, description = profile.description } = Astro.props;
+---
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#0d151e" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="ja_JP" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:site_name" content="yasd.works" />
+    <meta name="twitter:card" content="summary" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title}</title>
+  </head>
+  <body class="antialiased">
+    <a href="#main" class="sr-only fixed top-3 left-3 z-50 rounded-sm bg-gold px-5 py-3 text-ink focus:not-sr-only">本文へスキップ</a>
+    <slot />
+  </body>
+</html>

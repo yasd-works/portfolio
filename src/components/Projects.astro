@@ -1,0 +1,26 @@
+---
+import { projects } from '../data/portfolio';
+import Icon from './Icon.astro';
+import SectionHeading from './SectionHeading.astro';
+---
+<section id="projects" aria-labelledby="projects-heading" class="shell py-20 sm:py-24">
+  <SectionHeading number="01" label="Selected projects" title="技術を、業務の成果へ。" description="AIの検証、業務自動化、Web開発。課題の整理から実装まで、自ら手を動かしてきた取り組み。" id="projects-heading" />
+  <div class="grid gap-5 md:grid-cols-2">
+    {projects.map((project) => (
+      <article class="group flex flex-col rounded-sm border border-line bg-panel p-6 transition-colors hover:border-gold/50 sm:p-8">
+        <div class="mb-6 flex items-start justify-between gap-4">
+          <span class="flex size-11 items-center justify-center rounded-sm border border-line text-gold"><Icon name={project.icon} class="size-5" /></span>
+          <span class="font-mono text-3xl font-light text-muted/40" aria-hidden="true">{project.number}</span>
+        </div>
+        <p class="w-fit border-l-2 border-blue/70 pl-2.5 text-[11px] leading-relaxed font-medium tracking-wide text-blue">{project.category}</p>
+        <h3 class="mt-4 text-lg leading-relaxed font-semibold sm:text-xl">{project.title}</h3>
+        <dl class="mt-6 space-y-4 text-sm leading-7">
+          <div><dt class="mb-1 font-mono text-[10px] tracking-widest text-muted">BEFORE / 課題</dt><dd class="text-muted">{project.before}</dd></div>
+          <div><dt class="mb-1 font-mono text-[10px] tracking-widest text-gold">AFTER / 取り組み・成果</dt><dd class="text-[#d9e1e9]">{project.after}</dd></div>
+        </dl>
+        <p class="mt-6 border-t border-line pt-4 text-xs leading-relaxed font-medium text-gold">{project.outcome}</p>
+        <ul class="mt-auto flex flex-wrap gap-2 pt-5" aria-label="使用技術">{project.tags.map((tag) => <li class="tag">{tag}</li>)}</ul>
+      </article>
+    ))}
+  </div>
+</section>

@@ -1,0 +1,13 @@
+---
+import { profile } from '../data/portfolio';
+import Icon from './Icon.astro';
+---
+<footer class="border-t border-line bg-panel/40">
+  <div class="shell flex flex-col justify-between gap-8 py-10 sm:flex-row sm:items-center">
+    <div><p class="text-sm font-semibold tracking-wider">{profile.name}<span class="ml-3 text-gold">/</span></p><p class="mt-2 text-xs text-muted">課題の発見から、使い続けられる仕組みへ。</p></div>
+    <div class="flex items-center justify-between gap-8 sm:gap-10">
+      <p class="font-mono text-[10px] tracking-wide text-muted">© 2026 Yasuda.y</p>
+      <a href={profile.github} target="_blank" rel="noopener noreferrer" class="flex min-h-11 items-center gap-2 text-xs text-muted hover:text-gold" aria-label="yasd-worksのGitHub（新しいタブで開く）"><Icon name="github" class="size-4" /> GitHub <span aria-hidden="true">↗</span></a>
+    </div>
+  </div>
+</footer>

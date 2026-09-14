@@ -1,0 +1,22 @@
+---
+import { experience } from '../data/portfolio';
+import SectionHeading from './SectionHeading.astro';
+---
+<section id="experience" aria-labelledby="experience-heading" class="shell py-20 sm:py-24">
+  <SectionHeading number="03" label="Experience" title="現場を知る。技術で応える。" description="航空・防衛で培った課題解決力を、データサイエンスとWebエンジニアリングへ。" id="experience-heading" />
+  <ol class="ml-2 border-l border-line">
+    {experience.map((item) => (
+      <li class="relative pb-10 pl-7 last:pb-0 sm:pl-10">
+        <span class:list={['absolute top-1.5 -left-[5px] size-[9px] rounded-full border', item.current ? 'border-gold bg-gold shadow-[0_0_0_5px_#d5b77c12]' : 'border-muted bg-ink']} aria-hidden="true"></span>
+        <div class="grid gap-3 md:grid-cols-[190px_1fr] md:gap-10">
+          <p class:list={['font-mono text-xs leading-6 tracking-wide', item.current ? 'text-gold' : 'text-muted']}>{item.period}</p>
+          <div>
+            <h3 class="text-lg font-semibold">{item.title}</h3>
+            <p class="mt-2 text-xs leading-relaxed text-blue">{item.role}</p>
+            <p class="mt-4 max-w-2xl text-sm leading-7 text-muted">{item.description}</p>
+          </div>
+        </div>
+      </li>
+    ))}
+  </ol>
+</section>

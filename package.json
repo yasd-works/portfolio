@@ -1,0 +1,29 @@
+{
+  "name": "yasd-works-portfolio",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "astro dev --host 127.0.0.1",
+    "dev:status": "astro dev status",
+    "dev:stop": "astro dev stop",
+    "dev:restart": "astro dev --host 127.0.0.1 --force",
+    "build": "astro build",
+    "preview": "astro preview --host 127.0.0.1",
+    "check": "astro check",
+    "validate": "npm run check && npm run build"
+  },
+  "dependencies": {
+    "@tailwindcss/vite": "4.3.3",
+    "astro": "7.3.2",
+    "tailwindcss": "4.3.3"
+  },
+  "devDependencies": {
+    "@astrojs/check": "0.9.10",
+    "@types/node": "24.13.4",
+    "typescript": "6.0.3"
+  }
+}

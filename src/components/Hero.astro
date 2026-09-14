@@ -1,0 +1,61 @@
+---
+import { existsSync } from 'node:fs';
+import { resolve } from 'node:path';
+import { metrics, profile } from '../data/portfolio';
+import Icon from './Icon.astro';
+const hasPortrait = existsSync(resolve('public/profile-icon.png'));
+const imageSource = hasPortrait
+  ? '/profile-icon.png'
+  : 'https://placehold.co/480x560/162332/d5b77c.png?text=YY';
+---
+<section aria-labelledby="hero-heading" class="hero-grid border-b border-line">
+  <div class="shell grid items-center gap-14 pt-14 pb-14 lg:grid-cols-[1.4fr_0.8fr] lg:gap-20 lg:pt-20 lg:pb-16">
+    <div>
+      <p class="eyebrow mb-6 flex items-center gap-3"><span class="h-px w-8 bg-gold"></span> Engineering for real impact</p>
+      <h1 id="hero-heading" class="text-[clamp(2rem,4.2vw,3.5rem)] leading-[1.45] font-bold tracking-tight">現場の課題を、<br /><span class="text-gold">動く仕組み</span>に変える。</h1>
+      <div class="mt-7 border-l-2 border-gold/70 pl-4">
+        <p class="text-lg font-semibold tracking-wide">{profile.name}</p>
+        <p class="mt-1 text-xs tracking-wide text-blue sm:text-sm">{profile.role}</p>
+      </div>
+      <p class="mt-6 max-w-xl text-sm leading-[2.15] text-muted">{profile.summary}</p>
+      <div class="mt-8 flex flex-wrap items-center gap-6">
+        <a href="#projects" class="group inline-flex min-h-12 items-center gap-8 rounded-sm bg-gold px-6 text-sm font-semibold text-ink transition-colors hover:bg-[#e5c994]">実績を見る <Icon name="arrow" class="size-4 transition-transform group-hover:translate-x-1" /></a>
+        <a href="#skills" class="flex min-h-12 items-center gap-2 text-sm text-muted hover:text-white">できることを見る <span aria-hidden="true">↗</span></a>
+      </div>
+    </div>
+    <div class="relative mx-auto w-full max-w-[340px] lg:mr-0">
+      <div class="absolute -top-4 -left-4 h-16 w-16 border-t border-l border-gold/70" aria-hidden="true"></div>
+      <div class="absolute -right-4 -bottom-4 h-16 w-16 border-r border-b border-gold/70" aria-hidden="true"></div>
+      <figure class="relative overflow-hidden border border-line bg-panel">
+        <div class="relative aspect-[6/5] overflow-hidden bg-[#162332] sm:aspect-[6/5] lg:aspect-[6/7]">
+          <img id="profile-image" src={imageSource} alt={hasPortrait ? 'Yasuda.yのプロフィール画像' : 'Yasuda.yのプロフィール画像（仮アイコン）'} width="480" height="560" class="size-full object-cover opacity-80" fetchpriority="high" />
+          <svg class="pointer-events-none absolute inset-0 size-full text-gold/40" viewBox="0 0 340 395" fill="none" aria-hidden="true"><path d="M0 74h50l35 35h40M340 270h-48l-32 32h-44M40 0v40l20 20v105M310 395v-47l-24-24" stroke="currentColor"/><circle cx="125" cy="109" r="3" fill="currentColor"/><circle cx="216" cy="302" r="3" fill="currentColor"/><circle cx="60" cy="165" r="3" fill="currentColor"/></svg>
+          <p class="absolute top-5 left-5 font-mono text-[10px] tracking-[0.2em] text-muted">YASD.WORKS / PROFILE</p>
+        </div>
+        <figcaption class="border-t border-line px-5 py-5">
+          <p class="font-mono text-[10px] tracking-[0.15em] text-gold">FROM INSIGHT TO IMPLEMENTATION</p>
+          <p class="mt-2 text-xs text-muted">{profile.bio}</p>
+        </figcaption>
+      </figure>
+    </div>
+  </div>
+  <div class="shell">
+    <dl class="grid border-t border-line py-8 md:grid-cols-3 md:py-9">
+      {metrics.map((metric, i) => (
+        <div class:list={['py-5 first:pt-0 last:pb-0 md:py-0 md:first:pt-0', i > 0 && 'border-t border-line md:border-t-0 md:border-l md:pl-10']}>
+          <dd class="font-mono text-[1.9rem] tracking-tight text-white lg:text-[2.15rem]">{metric.value}<span class="ml-2 text-sm text-gold">{'unit' in metric ? metric.unit : ''}</span></dd>
+          <dt class="mt-2 text-sm text-muted">{metric.label}</dt>
+          <dd class="mt-2 text-[10px] leading-relaxed text-muted/80">{metric.note}</dd>
+        </div>
+      ))}
+    </dl>
+  </div>
+</section>
+<script>
+  const portrait = document.querySelector<HTMLImageElement>('#profile-image');
+  const fallback = () => {
+    if (portrait && !portrait.src.endsWith('/profile-placeholder.svg')) portrait.src = '/profile-placeholder.svg';
+  };
+  portrait?.addEventListener('error', fallback);
+  if (portrait?.complete && portrait.naturalWidth === 0) fallback();
+</script>
