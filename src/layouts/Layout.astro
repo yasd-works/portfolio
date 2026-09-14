@@ -12,7 +12,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalURL} />
-    <meta name="theme-color" content="#0d151e" />
+    <meta name="theme-color" content="#ffffff" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:locale" content="ja_JP" />
@@ -24,7 +24,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <title>{title}</title>
   </head>
   <body class="antialiased">
-    <a href="#main" class="sr-only fixed top-3 left-3 z-50 rounded-sm bg-gold px-5 py-3 text-ink focus:not-sr-only">本文へスキップ</a>
+    <a href="#main" class="skip-link">本文へスキップ</a>
     <slot />
   </body>
 </html>

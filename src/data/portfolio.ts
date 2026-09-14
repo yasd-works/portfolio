@@ -10,73 +10,51 @@ export const profile = {
 };
 
 export const navigation = [
-  { href: '#projects', label: '実績', en: 'Projects' },
-  { href: '#skills', label: 'スキル', en: 'Skills' },
-  { href: '#experience', label: '経歴', en: 'Experience' },
+  { href: '#projects', label: '取り組んだこと', en: 'Projects' },
+  { href: '#skills', label: 'できること', en: 'Skills' },
+  { href: '#experience', label: '私について', en: 'About' },
 ];
 
-// Career metrics are scoped to the source skill sheet, not live analytics.
-export const metrics = [
-  { value: '0.25 → 0.85', label: '故障予測モデルのF1スコア', note: '担当した直近の1モデルで改善' },
-  { value: '8h → 1h', label: 'データ抽出・処理時間', note: '既存プログラムの改修による短縮' },
-  { value: '11万', unit: 'PV', label: '情報ポータルの閲覧数', note: '職務経歴書更新時点の直近30日間' },
+export const workflow = ['課題を聞く', '要件を整理する', '小さく試す', '実装する', '運用・改善する'];
+
+export const featuredProjects = [
+  {
+    kind: 'prediction', category: 'データサイエンス', title: '故障の予兆を、もっと早く。',
+    description: '航空機の運航データから部品の故障を予測。独自の解析手法を取り入れ、直近の担当モデルの精度を改善しました。',
+    before: '既存モデルの精度を高め、故障の兆候を早く捉えたい。',
+    approach: 'データの抽出・クレンジング、仮説検証からモデルの設計・実装・精度評価まで担当。予兆検知のリードタイムも3日から7日に延伸しました。',
+    tags: ['Python', '機械学習', 'データ分析'],
+  },
+  {
+    kind: 'automation', category: '業務自動化', title: '毎日2時間の転記を、自動化。',
+    description: 'SaaSとGoogle WorkspaceをAPIで接続。データの取得からスプレッドシートへの反映まで、繰り返しの作業を仕組みにしました。',
+    before: '日々のコピー＆ペーストに約2時間かかり、他の業務に手が回らない。',
+    approach: '現場の相談を受け、必要なデータと更新の流れを整理。改善提案・要件定義から実装まで担当し、毎日の手動転記を自動化しました。',
+    tags: ['API連携', 'GAS', 'Google Workspace'],
+  },
+  {
+    kind: 'ux', category: '現場のUX改善', title: '探す手間から、見直す。',
+    description: '数千行のシートから入力先を探していた整備現場へ。普段使うポータルに、絞り込みと入力欄をまとめました。',
+    before: '調査結果を記入するたびに、集計列も混在する大きなシートから入力先を探していた。',
+    approach: 'ヒアリングをもとにスプレッドシートのデータ構造を整理し、APIでポータルと連携。必要な情報だけを絞り込んで記入できるようにし、入力先を探す手間を大幅に減らしました。',
+    tags: ['ヒアリング', 'UI設計', 'データ構造設計'],
+  },
+  {
+    kind: 'web', category: 'Web開発・チーム運営', title: 'つくる。その先の運営まで。',
+    description: '28名の制作体制で育てる情報ポータル。PMと開発主担当を兼ね、Web画面・サーバーレス基盤・内製CMSを構築しました。',
+    before: '継続的なコンテンツ更新を支える基盤と、制作チームが動ける仕組みが必要だった。',
+    approach: '企画・要件定義から設計・開発・運用まで担当。ライター26名、アシスタントエンジニア1名を含む体制で、進行・品質管理とアクセス解析による改善を続けています。',
+    tags: ['Astro', 'TypeScript', 'Cloudflare', 'PM'],
+  },
 ];
 
-export type Project = {
-  number: string;
-  category: string;
-  title: string;
-  before: string;
-  after: string;
-  outcome: string;
-  tags: string[];
-  icon: 'scan' | 'flow' | 'code' | 'layers';
-};
-
-// The first three cases were completed at the airline. The owner confirmed
-// responsibility for consulting, requirements definition, and implementation.
-export const projects: Project[] = [
-  {
-    number: '01',
-    category: 'AI導入・ITコンサルティング',
-    title: '目視検査に、AIという選択肢を。',
-    before: 'PDFとWebページの目視比較に工数がかかり、見落としや確認品質のばらつきが発生。',
-    after: '航空会社で、課題整理・提案から要件定義、Pythonによる検査補助PoCの実装までを担当。LLMによる誤字脱字チェックの精度向上も提案。',
-    outcome: '課題の発見から、検証できるPoCへ',
-    tags: ['Python', 'LLM', 'PoC開発', 'DX推進'],
-    icon: 'scan',
-  },
-  {
-    number: '02',
-    category: '業務自動化',
-    title: '毎回2時間の転記を、自動化。',
-    before: 'SaaSからデータを取り出し、スプレッドシートへ手作業でコピーする業務に毎回2時間。',
-    after: '航空会社で、業務改善の提案・要件定義から実装までを担当。APIとスクレイピングでデータ元から直接抽出・連携する仕組みを構築し、転記を自動化。',
-    outcome: 'データ抽出から連携まで、自動で完結',
-    tags: ['Python', 'GAS', 'API', '業務改善'],
-    icon: 'flow',
-  },
-  {
-    number: '03',
-    category: '生成AI活用',
-    title: 'レガシーコードの移行を支援。',
-    before: '他部署で進むC言語からVB.NETへの移行で、既存コードの書き換えが大きな負荷に。',
-    after: '航空会社で、LLM活用の提案・要件定義から実装までを担当。専用の変換プロンプトを設計・提供し、他部署のコード移行を支援。',
-    outcome: '生成AIを、具体的な開発業務に適用',
-    tags: ['LLM', 'Prompt Engineering', 'VB.NET'],
-    icon: 'code',
-  },
-  {
-    number: '04',
-    category: 'Web開発・プロジェクトマネジメント',
-    title: '28名で育てる、情報ポータル。',
-    before: 'コンテンツの継続更新を支えるインフラと、ライター26名を含む制作体制の運用が必要。',
-    after: 'Cloudflareによるサーバーレス基盤と内製CMSを構築。PMと開発主担当を兼任し、直近30日間で約11万PV・約1.2万MAUを記録したサイトを運営。',
-    outcome: '企画・実装・チーム運営を一貫して担当',
-    tags: ['Cloudflare', 'Astro', 'TypeScript', 'PM'],
-    icon: 'layers',
-  },
+export const otherProjects = [
+  { title: '10年以上続いた分析の前提を、PoCで検証。', label: '仮説検証・分析基盤', description: '「1フライトずつしか扱えない」と考えられていた分析ソフトのファイル入出力に着目。PoCで複数フライトにまたがる分析を検証・実装し、従来ツールに起因する約1日の通知遅延を解消しました。' },
+  { title: 'データ準備を、8時間から1時間へ。', label: '処理の高速化', description: '根本的な処理アルゴリズムの改修とマルチスレッド化により、データの抽出・処理を約8倍に高速化。分析を始めるまでの待ち時間を短縮しました。' },
+  { title: '目視検査に、AIという選択肢を。', label: 'AI活用・PoC', description: 'PDFとWebページを比較する検査業務に対し、改善提案・要件定義からPythonによる検査補助PoCまで担当。LLMによる誤字脱字チェックの精度向上も提案しました。' },
+  { title: 'レガシーコードの移行を、LLMで支援。', label: '生成AI・開発支援', description: '他部署で進むC言語からVB.NETへの移行に対し、LLM活用を提案。要件に合わせたコード変換プロンプトを設計・提供しました。' },
 ];
+
 
 export const skillGroups = [
   {

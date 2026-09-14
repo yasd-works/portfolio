@@ -2,17 +2,13 @@
 import { skillGroups } from '../data/portfolio';
 import SectionHeading from './SectionHeading.astro';
 ---
-<section id="skills" aria-labelledby="skills-heading" class="border-y border-line bg-panel/40 py-20 sm:py-24">
-  <div class="shell">
-    <SectionHeading number="02" label="Expertise & toolkit" title="分析から実装、運用まで。" description="目的に合わせて技術を選び、現場で機能する仕組みへ。専門領域をつないで、プロジェクトを進めます。" id="skills-heading" />
-    <div class="grid gap-x-14 md:grid-cols-2">
-      {skillGroups.map((group) => (
-        <article class="border-t border-line py-8">
-          <div class="flex items-baseline gap-4"><span class="font-mono text-xs text-gold">{group.number}</span><h3 class="text-lg font-medium tracking-wide">{group.title}</h3></div>
-          <p class="mt-3 text-xs leading-7 text-muted">{group.description}</p>
-          <ul class="mt-5 flex flex-wrap gap-2" aria-label={group.title}>{group.tags.map((tag) => <li class="tag">{tag}</li>)}</ul>
-        </article>
-      ))}
-    </div>
+<section id="skills" aria-labelledby="skills-heading" class="skills-section section-space shell">
+  <SectionHeading label="できること" title="課題に合わせて、技術を選ぶ。" description="ルールベースの自動化から、機械学習、LLMまで。目的に合う手段を選び、使い続けられる形へ。" id="skills-heading" />
+  <div class="skills-grid">{skillGroups.map((group) => (
+    <article class="skill-group"><h3>{group.title}</h3><p>{group.description}</p><ul aria-label={group.title}>{group.tags.map((tag) => <li>{tag}</li>)}</ul></article>
+  ))}</div>
+  <div class="principles">
+    <article><p class="principle-caption">大切にしていること</p><h3>人の時間を、取り戻す。</h3><p>作業や処理を待つ時間を減らし、人が判断や工夫に使える時間を増やす。改善にかける工数と得られる効果を考え、早く試せる方法から取り組みます。</p></article>
+    <article><p class="principle-caption">航空の現場で学んだ視点</p><h3>人が迷うところから、考える。</h3><p>人は迷い、見落とし、間違える。その前提で情報の見せ方や操作の流れを設計します。ヒューマンファクターズの視点を、日々の使いやすさにつなげます。</p></article>
   </div>
 </section>
