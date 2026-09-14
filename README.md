@@ -12,7 +12,7 @@ npm ci
 npm run dev
 ```
 
-初回セットアップ済みのPCでは `npm run dev` だけで起動できます。標準URLは http://127.0.0.1:4321 です。使用中の場合は別のポートになるため、起動時に表示されるURLを開いてください。
+初回セットアップ済みのPCでは `npm run dev` だけで起動できます。標準URLは http://127.0.0.1:4321/portfolio/ です。使用中の場合は別のポートになるため、起動時に表示されるURLを開いてください。
 
 ```powershell
 npm run check      # Astro / TypeScriptの型チェック
@@ -66,11 +66,21 @@ docs/                    GitHub初期設定、プロフィールREADME原稿
 - TypeScript 7は採用した `@astrojs/check` の対応範囲外のため、対応する6系を使用しています。
 - CSSのレスポンシブ対応、キーボードフォーカス、本文スキップリンク、動きを減らす設定に対応しています。
 
-## 公開前の仕上げ
+## GitHub Pagesへの公開
+
+公開URL: [https://yasd-works.github.io/portfolio/](https://yasd-works.github.io/portfolio/)
+
+`main`へのpushをきっかけに、`.github/workflows/deploy.yml`が依存関係のインストール、`npm run validate`、GitHub Pagesへの公開を順に実行します。型チェックやビルドに失敗した場合は公開しません。GitHubのActionsタブで進行状況とエラーを確認でき、手動実行も可能です。
+
+GitHub側の公開元は **Settings → Pages → Build and deployment → Source → GitHub Actions** を使用します。リポジトリ直下にAstroプロジェクトがあるため、ビルド対象のサブフォルダ指定は不要です。
+
+`astro.config.mjs`の`site`と`base`を公開URLに合わせ、画像やfaviconには`import.meta.env.BASE_URL`を使用しています。ローカルの開発・プレビューでも`/portfolio/`を開いてください。
+
+## 今後の仕上げ
 
 1. プロフィール画像と問い合わせ先を設定。
 2. 実績の公開範囲、個別案件の時期、指標の集計条件を確認。
-3. 公開URLが決まったら `astro.config.mjs` の `site`、canonical、OG画像、sitemapを追加。サブディレクトリで公開する場合は `base` と画像・内部リンクのパスも調整。
+3. OG画像とsitemapを追加。公開URL、canonical、サブディレクトリのパスは設定済みです。
 4. `npm run validate` を実行してから公開。
 
 ## 初期構築時の検証

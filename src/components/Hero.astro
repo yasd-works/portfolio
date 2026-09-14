@@ -5,7 +5,7 @@ import { metrics, profile } from '../data/portfolio';
 import Icon from './Icon.astro';
 const hasPortrait = existsSync(resolve('public/profile-icon.png'));
 const imageSource = hasPortrait
-  ? '/profile-icon.png'
+  ? `${import.meta.env.BASE_URL}profile-icon.png`
   : 'https://placehold.co/480x560/162332/d5b77c.png?text=YY';
 ---
 <section aria-labelledby="hero-heading" class="hero-grid border-b border-line">
@@ -53,8 +53,9 @@ const imageSource = hasPortrait
 </section>
 <script>
   const portrait = document.querySelector<HTMLImageElement>('#profile-image');
+  const fallbackSource = `${import.meta.env.BASE_URL}profile-placeholder.svg`;
   const fallback = () => {
-    if (portrait && !portrait.src.endsWith('/profile-placeholder.svg')) portrait.src = '/profile-placeholder.svg';
+    if (portrait && !portrait.src.endsWith(fallbackSource)) portrait.src = fallbackSource;
   };
   portrait?.addEventListener('error', fallback);
   if (portrait?.complete && portrait.naturalWidth === 0) fallback();
