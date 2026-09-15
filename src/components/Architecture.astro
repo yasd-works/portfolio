@@ -1,0 +1,23 @@
+---
+interface Props { kind: 'automation' | 'web'; }
+const { kind } = Astro.props;
+---
+<figure class="architecture" aria-labelledby={`${kind}-architecture-caption`}>
+  <figcaption id={`${kind}-architecture-caption`}>
+    <strong>{kind === 'web' ? '画面からデータまで、仕組みを設計。' : 'コピー＆ペーストを、データの流れに。'}</strong>
+    <span>{kind === 'web' ? '情報ポータルの主要構成を、役割ごとに抜粋。' : '毎日の転記を自動化した連携の概要。'}</span>
+  </figcaption>
+  {kind === 'automation' ? (
+    <ol class="data-flow" aria-label="SaaSのデータをAPI連携で取得し、Google Workspaceのスプレッドシートへ反映">
+      <li><span class="node-role">取得元</span><strong>SaaS</strong><span>業務データ</span></li>
+      <li class="flow-processing"><span class="node-role">連携処理</span><strong>API連携</strong><span>データを取得・反映</span></li>
+      <li><span class="node-role">反映先</span><strong>Google Workspace</strong><span>スプレッドシート</span></li>
+    </ol>
+  ) : (
+    <div class="system-layers">
+      <div class="system-layer"><span class="layer-label">画面</span><div class="layer-content"><strong>Web画面・内製CMS</strong><span>Astro / TypeScript</span></div></div>
+      <div class="system-layer system-processing"><span class="layer-label">処理</span><div class="layer-content"><strong>Cloudflare Workers</strong><span>サーバーレス基盤・外部API連携</span></div></div>
+      <div class="system-layer"><span class="layer-label">保存</span><div class="layer-content storage-services"><p><strong>D1</strong><span>データベース</span></p><p><strong>R2</strong><span>ファイルストレージ</span></p></div></div>
+    </div>
+  )}
+</figure>

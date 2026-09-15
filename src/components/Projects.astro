@@ -1,40 +1,54 @@
 ---
 import { featuredProjects, otherProjects } from '../data/portfolio';
 import SectionHeading from './SectionHeading.astro';
+import MetricChange from './MetricChange.astro';
+import Architecture from './Architecture.astro';
 ---
 <section id="projects" aria-labelledby="projects-heading" class="projects-section section-space">
   <div class="shell">
-    <SectionHeading label="取り組んだこと" title="変えたのは、現場のあたりまえ。" description="予測の精度も、日々の手間も、使いづらさも。課題を整理し、実際に動く仕組みにしてきました。" id="projects-heading" />
+    <SectionHeading label="取り組んだこと" title="変えたのは、現場のあたりまえ。" description="予測の精度、分析までの待ち時間、毎日の転記。課題を整理し、仕組みから変えてきた実績です。" id="projects-heading" />
     <div class="project-list">
       {featuredProjects.map((project) => (
-        <article class="project-entry">
-          <p class="project-category">{project.category}</p><h3>{project.title.split(/(?<=[、。])/u).filter(Boolean).map((phrase) => <span class="heading-phrase">{phrase}</span>)}</h3>
-          <p class="project-description">{project.description}</p>
+        <article id={`project-${project.kind}`} class="project-entry">
+          <div class="project-meta"><p class="project-context">{project.context}</p><p class="project-category">{project.category}</p></div>
+          <h3>{project.title.split(/(?<=[、。])/u).filter(Boolean).map((phrase) => <span class="heading-phrase">{phrase}</span>)}</h3>
           <div class="project-result">
-          {project.kind === 'prediction' && (
-            <div class="score-comparison" aria-label="直近の担当モデルのF1スコアが0.25から0.85へ改善">
-              <p class="metric-label">F1スコア</p>
-              <div class="score-row"><span>改善前</span><div class="score-track"><div class="score-bar score-before"></div></div><strong>0.25</strong></div>
-              <div class="score-row"><span>改善後</span><div class="score-track"><div class="score-bar score-after"></div></div><strong>0.85</strong></div>
-              <p class="metric-note">担当した直近の1モデルでの結果。</p>
-            </div>
-          )}
-          {project.kind === 'automation' && (
-            <div class="automation-result"><p class="automation-time"><strong>2</strong><span>時間 / 日</span></p><div class="result-separator" aria-hidden="true"></div><p class="automation-outcome">手動転記を<br /><strong>自動化</strong></p></div>
-          )}
-          {project.kind === 'ux' && (
-            <div class="ux-comparison"><div><span>これまで</span><p>数千行から<br />入力先を探す</p></div><span class="ux-direction" aria-hidden="true">→</span><div><span>改善後</span><p>絞り込んで<br />その場で記入</p></div></div>
-          )}
-          {project.kind === 'web' && (
-            <div class="web-results"><dl><div><dt>閲覧数</dt><dd>11<span>万PV</span></dd></div><div><dt>利用者数</dt><dd>1.2<span>万MAU</span></dd></div></dl><p class="metric-note">職務経歴書更新時点の直近30日間。いずれも概数。</p></div>
-          )}
+            {project.kind === 'prediction' && (
+              <>
+                <MetricChange label="予測の的中と、故障の捉えやすさのバランスを示すF1スコア" before="0.25" after="0.85" />
+                <p class="result-meaning">予兆検知のリードタイムも<strong>3日から7日へ。</strong><br />故障の兆候を、より早く捉えられるように。</p>
+                <p class="metric-note">担当した直近の1モデルでの結果。F1スコアは0〜1の指標で、正解率とは異なります。</p>
+              </>
+            )}
+            {project.kind === 'performance' && (
+              <>
+                <MetricChange label="データの抽出・処理にかかる時間（概数）" before="8" after="1" unit="時間" />
+                <p class="result-meaning">処理速度は<strong>約8倍。</strong><br />分析を始めるまでの待ち時間を短縮。</p>
+                <p class="metric-note">一連の処理の経過時間を比較。手作業の時間とは区別しています。</p>
+              </>
+            )}
+            {project.kind === 'automation' && (
+              <>
+                <div class="automation-result"><div><p class="metric-label">毎日かかっていた手動転記</p><p class="automation-time"><strong>2</strong><span>時間 / 日</span></p></div><span class="result-arrow" aria-hidden="true">→</span><p class="automation-outcome">API連携で<br /><strong>自動化</strong></p></div>
+                <p class="result-meaning">日々のコピー＆ペーストを、仕組みに任せる。</p>
+              </>
+            )}
+            {project.kind === 'ux' && (
+              <div class="ux-comparison"><div><span>これまで</span><p>数千行から<br />入力先を探す</p></div><span class="ux-direction" aria-hidden="true">→</span><div><span>改善後</span><p>絞り込んで<br />その場で記入</p></div></div>
+            )}
+            {project.kind === 'web' && (
+              <div class="web-results"><dl><div><dt>閲覧数</dt><dd>11<span>万PV</span></dd></div><div><dt>利用者数</dt><dd>1.2<span>万MAU</span></dd></div></dl><p class="metric-note">職務経歴書更新時点の直近30日間。いずれも概数。</p></div>
+            )}
           </div>
+          <p class="project-description">{project.description}</p>
+          <p class="project-role"><span>担当範囲</span>{project.role}</p>
+          {(project.kind === 'automation' || project.kind === 'web') && <Architecture kind={project.kind} />}
           <ul class="project-tags" aria-label="使用技術・担当領域">{project.tags.map((tag) => <li>{tag}</li>)}</ul>
           <details class="case-details"><summary>課題と取り組みを読む<span aria-hidden="true" class="details-plus">+</span></summary><div class="case-body"><h4>課題</h4><p>{project.before}</p><h4>取り組み・担当範囲</h4><p>{project.approach}</p></div></details>
         </article>
       ))}
     </div>
-    <div class="more-projects"><h3>小さく試すことから、始まった改善。</h3>
+    <div class="more-projects"><p class="project-context">航空会社での、その他の取り組み</p><h3>小さく試し、現場へ伝える。</h3>
       <div class="project-notes">{otherProjects.map((project) => (
         <details class="project-note"><summary><span class="note-label">{project.label}</span><span>{project.title}</span><span aria-hidden="true" class="details-plus">+</span></summary><p>{project.description}</p></details>
       ))}</div>

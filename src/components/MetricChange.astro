@@ -1,0 +1,13 @@
+---
+import Icon from './Icon.astro';
+interface Props { label: string; before: string; after: string; unit?: string; }
+const { label, before, after, unit } = Astro.props;
+---
+<div class="metric-change">
+  <p class="metric-label">{label}</p>
+  <div class="metric-values">
+    <dl><dt>改善前</dt><dd>{before}{unit && <span>{unit}</span>}</dd></dl>
+    <Icon name="arrow" class="metric-arrow" />
+    <dl class="metric-after"><dt>改善後</dt><dd>{after}{unit && <span>{unit}</span>}</dd></dl>
+  </div>
+</div>
