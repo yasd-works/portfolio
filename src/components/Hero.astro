@@ -3,33 +3,14 @@ import { profile, workflow } from '../data/portfolio';
 import Icon from './Icon.astro';
 ---
 <section class="hero shell" aria-labelledby="hero-heading">
-  <div class="hero-layout">
-    <div class="hero-copy">
-      <p class="hero-intro">{profile.name}<span>フリーランスエンジニア</span></p>
-      <h1 id="hero-heading"><span>その「仕方ない」を、</span><span>技術で変える。</span></h1>
-      <p class="hero-description">課題を見つける。データで確かめる。<br class="desktop-break" />使える仕組みまで、自分の手でつくる。</p>
-      <p class="hero-support"><span>航空の現場から、</span><span>データサイエンス、Web開発へ。</span><br /><span>現場の声を聞き、</span><span>解決まで一貫して取り組みます。</span></p>
-      <div class="hero-actions">
-        <a class="button button-primary" href="#projects">取り組んだことを見る<Icon name="arrow" /></a>
-        <a class="text-link" href="#experience">私について</a>
-      </div>
+  <div class="hero-copy">
+    <p class="hero-intro">{profile.name}<span>フリーランスエンジニア</span></p>
+    <h1 id="hero-heading"><span>その「仕方ない」を、</span><span>技術で変える。</span></h1>
+    <p class="hero-description"><span>課題を見つける。</span><span>データで確かめる。</span><span>使える仕組みまで、</span><span>自分の手でつくる。</span></p>
+    <p class="hero-support"><span>航空の現場から、</span><span>データサイエンス、Web開発へ。</span><br /><span>現場の声を聞き、</span><span>解決まで一貫して取り組みます。</span></p>
+    <div class="hero-actions">
+      <a class="button button-primary" href="#projects">取り組んだことを見る<Icon name="arrow" /></a>
     </div>
-    <aside class="expertise-map" aria-label="データ分析とシステム実装の2つの専門性">
-      <div class="expertise-bridge"><p>課題の発見から、解決まで。</p><span>現場を知る × 手を動かす</span></div>
-      <div class="expertise-pillars">
-        <div class="expertise-pillar pillar-data">
-          <Icon name="scan" class="pillar-icon" />
-          <p class="pillar-english">Data science</p><h2>データで<br />見つける。</h2>
-          <ul><li>故障の予測</li><li>仮説の検証</li><li>分析の高速化</li></ul>
-        </div>
-        <div class="expertise-pillar pillar-build">
-          <Icon name="code" class="pillar-icon" />
-          <p class="pillar-english">Engineering</p><h2>仕組みで<br />変える。</h2>
-          <ul><li>業務の自動化</li><li>Webサービス</li><li>現場のUX改善</li></ul>
-        </div>
-      </div>
-      <p class="expertise-caption">分析と実装をつなぐ、2つの専門性。</p>
-    </aside>
   </div>
   <div class="workflow"><p>一貫して、伴走します。</p><ol>{workflow.map((step, i) => <li><span class="workflow-number">{i + 1}</span>{step}</li>)}</ol></div>
 </section>
