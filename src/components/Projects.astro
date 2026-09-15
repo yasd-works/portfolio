@@ -5,17 +5,18 @@ import SectionHeading from './SectionHeading.astro';
 <section id="projects" aria-labelledby="projects-heading" class="projects-section section-space">
   <div class="shell">
     <SectionHeading label="取り組んだこと" title="変えたのは、現場のあたりまえ。" description="予測の精度も、日々の手間も、使いづらさも。課題を整理し、実際に動く仕組みにしてきました。" id="projects-heading" />
-    <div class="project-grid">
+    <div class="project-list">
       {featuredProjects.map((project) => (
-        <article class:list={['project-card', 'project-' + project.kind]}>
+        <article class="project-entry">
           <p class="project-category">{project.category}</p><h3>{project.title.split(/(?<=[、。])/u).filter(Boolean).map((phrase) => <span class="heading-phrase">{phrase}</span>)}</h3>
           <p class="project-description">{project.description}</p>
+          <div class="project-result">
           {project.kind === 'prediction' && (
             <div class="score-comparison" aria-label="直近の担当モデルのF1スコアが0.25から0.85へ改善">
               <p class="metric-label">F1スコア</p>
               <div class="score-row"><span>改善前</span><div class="score-track"><div class="score-bar score-before"></div></div><strong>0.25</strong></div>
               <div class="score-row"><span>改善後</span><div class="score-track"><div class="score-bar score-after"></div></div><strong>0.85</strong></div>
-              <p class="metric-note">担当した直近の1モデルでの結果。棒の長さは0〜1の同一スケール。</p>
+              <p class="metric-note">担当した直近の1モデルでの結果。</p>
             </div>
           )}
           {project.kind === 'automation' && (
@@ -27,6 +28,7 @@ import SectionHeading from './SectionHeading.astro';
           {project.kind === 'web' && (
             <div class="web-results"><dl><div><dt>閲覧数</dt><dd>11<span>万PV</span></dd></div><div><dt>利用者数</dt><dd>1.2<span>万MAU</span></dd></div></dl><p class="metric-note">職務経歴書更新時点の直近30日間。いずれも概数。</p></div>
           )}
+          </div>
           <ul class="project-tags" aria-label="使用技術・担当領域">{project.tags.map((tag) => <li>{tag}</li>)}</ul>
           <details class="case-details"><summary>課題と取り組みを読む<span aria-hidden="true" class="details-plus">+</span></summary><div class="case-body"><h4>課題</h4><p>{project.before}</p><h4>取り組み・担当範囲</h4><p>{project.approach}</p></div></details>
         </article>
